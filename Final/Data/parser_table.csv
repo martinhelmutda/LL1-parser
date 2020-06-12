@@ -1,0 +1,45 @@
+program,identifier,program -> opt-declaration-list opt-statement-list
+program,int,program -> opt-declaration-list opt-statement-list
+program,bool,program -> opt-declaration-list opt-statement-list
+program,print,program -> opt-declaration-list opt-statement-list
+program,if,program -> opt-declaration-list opt-statement-list
+program,$,program -> opt-declaration-list opt-statement-list
+opt-declaration-list,identifier,opt-declaration-list -> ''
+opt-declaration-list,int,opt-declaration-list -> declaration opt-declaration-list
+opt-declaration-list,bool,opt-declaration-list -> declaration opt-declaration-list
+opt-declaration-list,print,opt-declaration-list -> ''
+opt-declaration-list,if,opt-declaration-list -> ''
+opt-declaration-list,$,opt-declaration-list -> ''
+opt-statement-list,identifier,opt-statement-list -> statement opt-statement-list
+opt-statement-list,print,opt-statement-list -> statement opt-statement-list
+opt-statement-list,if,opt-statement-list -> statement opt-statement-list
+opt-statement-list,end,opt-statement-list -> ''
+opt-statement-list,$,opt-statement-list -> ''
+declaration,int,declaration -> type identifier
+declaration,bool,declaration -> type identifier
+type,int,type -> int
+type,bool,type -> bool
+statement,identifier,statement -> assignment
+statement,print,statement -> do-print
+statement,if,statement -> condition
+assignment,identifier,assignment -> identifier = expression
+do-print,print,do-print -> print expression
+condition,if,condition -> if expression then opt-statement-list end
+expression,identifier,expression -> simple-expression expression-aux
+expression,integer,expression -> simple-expression expression-aux
+expression,boolean,expression -> simple-expression expression-aux
+expression,(,expression -> simple-expression expression-aux
+expression,-,expression -> simple-expression expression-aux
+expression-aux,identifier,expression-aux -> ''
+expression-aux,print,expression-aux -> ''
+expression-aux,if,expression-aux -> ''
+expression-aux,then,expression-aux -> ''
+expression-aux,end,expression-aux -> ''
+expression-aux,operator,expression-aux -> operator simple-expression expression-aux
+expression-aux,),expression-aux -> ''
+expression-aux,$,expression-aux -> ''
+simple-expression,identifier,simple-expression -> identifier
+simple-expression,integer,simple-expression -> integer
+simple-expression,boolean,simple-expression -> boolean
+simple-expression,(,simple-expression -> ( expression )
+simple-expression,-,simple-expression -> - simple-expression

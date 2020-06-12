@@ -1,0 +1,19 @@
+
+
+--- gramática
+program -> opt-declaration-list opt-statement-list
+opt-declaration-list -> declaration opt-declaration-list | ϵ
+opt-statement-list -> statement opt-statement-list | ϵ
+declaration -> type identifier 
+type -> int | bool
+statement -> assignment | do-print | condition
+assignment -> identifier = expression
+do-print -> print expression
+condition -> if expression then opt-statement-list end
+expression -> simple-expression expression-aux
+expression-aux -> operator simple-expression expression-aux | ϵ
+simple-expression -> identifier | integer | boolean | ( expression ) | - simple-expression
+
+--------- Test en http://jsmachines.sourceforge.net/machines/ll1.html
+int identifier int identifier bool identifier bool identifier int identifier bool identifier identifier = boolean identifier = boolean identifier = integer identifier = integer if identifier operator identifier then identifier = identifier operator identifier if identifier operator identifier then print boolean end end print identifier
+int identifier int identifier bool identifier identifier = boolean identifier = integer identifier = identifier if boolean operator identifier then identifier = integer operator integer operator identifier end if identifier then identifier = - ( identifier operator integer ) end
